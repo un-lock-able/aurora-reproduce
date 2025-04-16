@@ -1,0 +1,6 @@
+[submodule "aurora"]
+	path = aurora
+	url = https://github.com/PCCproject/PCC-RL.git
+[submodule "PCC-Uspace"]
+	path = PCC-Uspace
+	url = https://github.com/PCCproject/PCC-Uspace.git
