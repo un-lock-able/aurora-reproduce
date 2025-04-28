@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# THIS FILE IS NOT ENTENDED TO BE RUN
+# This file is only used for copying the commands as they are very very long ;)
+echo "You should not run this directly. Copy the command and run them yourself"
+exit 0
+
+# Server part
+cd /home/vagrant/pcc-uspace-src
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/core/
+./app/pccserver recv 9000
+
+# Client part
+source /home/vagrant/miniconda3/etc/profile.d/conda.sh
+conda activate aurora
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/core/
+./app/pccclient send 127.0.0.1 9000 --pcc-rate-control=python -pyhelper=loaded_client -pypath=/home/vagrant/aurora/src/udt-plugins/testing --history-len=10 --pcc-utility-calc=linear --model-path=/home/vagrant/aurora/model_A
+
+# Command ref:
+./app/pccclient send 127.0.0.1 9000 --pcc-rate-control=python -pyhelper=loaded_client -pypath=/path/to/pcc-rl/src/udt-plugins/testing/ --history-len=10 --pcc-utility-calc=linear --model-path=/path/to/your/model/

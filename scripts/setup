@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# NOTE: Change the python3.5 to python3.7 in pcc_python_rc.h.
+# NOTE: Also in the Makefile, add the $(python3.7-config --ldflags) in LDFLAGS, add $(python3.7-config --cflags) in CCFLAGS
+
+# Note: checkout the 'deep-learning' branch of PCC-Uspace before vagrant-up
+
+# ---- Prepare for compiling PCC
+sudo apt update
+sudo apt-get install build-essential gcc-11 g++-11 -y
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 100
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.7-dev
+
+# ---- Compile PCC
+cd /home/vagrant/pcc-uspace/src
+make -j$(nproc)
+
+# ---- Install miniconda
+cd /home/vagrant
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -p /home/vagrant/miniconda3
+
+# ---- Create python env and install dependencies
+sudo apt-get update
+sudo apt-get install libopenmpi-dev -y
+# This is for cv2 used in aurora code
+# This package is renamed to this on 24.04. For earlier version that this package doesn't exist, use libgl1-mesa-glx
+sudo apt-get install libglx-mesa0 libgl1 -y
+
+cd /home/vagrant
+source /home/vagrant/miniconda3/etc/profile.d/conda.sh
+conda create -n aurora python=3.7 -y
+conda activate aurora
+pip install protobuf==3.20 tensorflow==1.15 gym==0.20 stable_baselines[mpi]==2.10.0
+# For running pccclient
+# pip install numpy
+conda deactivate

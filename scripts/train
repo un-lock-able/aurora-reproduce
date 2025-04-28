@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# ---- Do training, using the paper's way
+source /home/vagrant/miniconda3/etc/profile.d/conda.sh
+conda activate aurora
+python /home/vagrant/aurora/src/gym/stable_solve.py
+conda deactivate
