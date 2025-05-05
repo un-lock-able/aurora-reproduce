@@ -13,11 +13,11 @@ For reproducing the results in "A Deep Reinforcement Learning Perspective on Int
 ## Run the reproduce
 Use
 ```shell
-git submodule init
+git submodule update --init --recursive
 ```
 to init all submodule used.
 
-Remember to checkout `deep-learning` branch of PCC-Uspace:
+Remember to checkout `deep-learning` branch of PCC-Uspace (The submodule should be automatically pointing to the correct commit. Verify it by checking the existence of the file `PCC-Uspace/Deep_Learning_Readme.md`).
 ```shell
 # ./PCC-Uspace
 git checkout deep-learning

@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "./aurora", "/home/vagrant/aurora", type: 'rsync'
     config.vm.synced_folder "./PCC-Uspace", "/home/vagrant/pcc-uspace", type: 'rsync'
     config.vm.synced_folder "./scripts", "/home/vagrant/scripts", type: 'rsync'
+    config.vm.synced_folder "./model_A", "/home/vagrant/model_A", type: 'rsync'
     # config.vm.synced_folder ".","/vagrant_data",type:'9p',accessmode:"squash",mount:"true"
 
     # ssh setting
